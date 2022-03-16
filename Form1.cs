@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
+using Microsoft.Msagl.Core.Geometry;
+using Microsoft.Msagl.Core.Geometry.Curves;
 
 namespace FolderCrawler
 {
@@ -69,7 +72,7 @@ namespace FolderCrawler
 
         private void txtStartDir_TextChanged(object sender, EventArgs e)
         {
-
+            linkLabel1.Text = this.searchProps.startDir;
         }
 
         private void rbtnBFS_CheckedChanged(object sender, EventArgs e)
@@ -81,6 +84,9 @@ namespace FolderCrawler
         {
             if (this.searchProps.isReady())
             {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+
                 string[] files = Directory.GetFiles(this.searchProps.startDir);
                 string[] dirs = Directory.GetDirectories(this.searchProps.startDir);
 
@@ -98,6 +104,9 @@ namespace FolderCrawler
                 MessageBox.Show(
                     "TODO SEARCH: \n" + this.searchProps.props() + "\n\n" + "DIRS 1ST DEPTH: \n" + dirsString + "\n" + "FILES 1ST DEPTH: \n" + filesString
                 );
+
+                sw.Stop();
+                lblTimeSpent.Text = "Time Spent: " + sw.ElapsedMilliseconds + " ms";
 
             }
             else
@@ -119,6 +128,16 @@ namespace FolderCrawler
         private void rbtnDFS_CheckedChanged(object sender, EventArgs e)
         {
             this.searchProps.method = (rbtnBFS.Checked) ? "BFS" : "DFS";
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(this.searchProps.startDir);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -42,6 +42,9 @@ namespace FolderCrawler
             this.txtStartDir = new System.Windows.Forms.TextBox();
             this.lblStartDir = new System.Windows.Forms.Label();
             this.lblInput = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblTimeSpent = new System.Windows.Forms.Label();
             this.pnlInput.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,7 +77,7 @@ namespace FolderCrawler
             this.pnlInput.Controls.Add(this.lblStartDir);
             this.pnlInput.Controls.Add(this.lblInput);
             this.pnlInput.Location = new System.Drawing.Point(4, 55);
-            this.pnlInput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlInput.Margin = new System.Windows.Forms.Padding(4);
             this.pnlInput.Name = "pnlInput";
             this.pnlInput.Size = new System.Drawing.Size(533, 579);
             this.pnlInput.TabIndex = 1;
@@ -86,7 +89,7 @@ namespace FolderCrawler
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.Location = new System.Drawing.Point(11, 362);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(185, 33);
             this.button2.TabIndex = 10;
@@ -99,7 +102,7 @@ namespace FolderCrawler
             this.rbtnDFS.AutoSize = true;
             this.rbtnDFS.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnDFS.Location = new System.Drawing.Point(267, 319);
-            this.rbtnDFS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtnDFS.Margin = new System.Windows.Forms.Padding(4);
             this.rbtnDFS.Name = "rbtnDFS";
             this.rbtnDFS.Size = new System.Drawing.Size(64, 24);
             this.rbtnDFS.TabIndex = 9;
@@ -113,7 +116,7 @@ namespace FolderCrawler
             this.rbtnBFS.AutoSize = true;
             this.rbtnBFS.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnBFS.Location = new System.Drawing.Point(13, 319);
-            this.rbtnBFS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbtnBFS.Margin = new System.Windows.Forms.Padding(4);
             this.rbtnBFS.Name = "rbtnBFS";
             this.rbtnBFS.Size = new System.Drawing.Size(63, 24);
             this.rbtnBFS.TabIndex = 8;
@@ -140,7 +143,7 @@ namespace FolderCrawler
             this.cBoxFindAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBoxFindAll.ForeColor = System.Drawing.SystemColors.ControlText;
             this.cBoxFindAll.Location = new System.Drawing.Point(11, 236);
-            this.cBoxFindAll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cBoxFindAll.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxFindAll.Name = "cBoxFindAll";
             this.cBoxFindAll.Size = new System.Drawing.Size(168, 24);
             this.cBoxFindAll.TabIndex = 6;
@@ -152,7 +155,7 @@ namespace FolderCrawler
             // 
             this.txtFileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFileName.Location = new System.Drawing.Point(11, 190);
-            this.txtFileName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFileName.Margin = new System.Windows.Forms.Padding(4);
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(508, 26);
             this.txtFileName.TabIndex = 5;
@@ -174,7 +177,7 @@ namespace FolderCrawler
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.button1.Location = new System.Drawing.Point(8, 112);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(185, 33);
             this.button1.TabIndex = 3;
@@ -187,7 +190,7 @@ namespace FolderCrawler
             this.txtStartDir.Enabled = false;
             this.txtStartDir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtStartDir.Location = new System.Drawing.Point(8, 78);
-            this.txtStartDir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtStartDir.Margin = new System.Windows.Forms.Padding(4);
             this.txtStartDir.Name = "txtStartDir";
             this.txtStartDir.Size = new System.Drawing.Size(508, 26);
             this.txtStartDir.TabIndex = 2;
@@ -215,19 +218,54 @@ namespace FolderCrawler
             this.lblInput.Text = "Input";
             this.lblInput.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel1.Location = new System.Drawing.Point(630, 431);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(0, 20);
+            this.linkLabel1.TabIndex = 2;
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(544, 431);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(80, 20);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Path File:";
+            // 
+            // lblTimeSpent
+            // 
+            this.lblTimeSpent.AutoSize = true;
+            this.lblTimeSpent.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTimeSpent.Location = new System.Drawing.Point(544, 485);
+            this.lblTimeSpent.Name = "lblTimeSpent";
+            this.lblTimeSpent.Size = new System.Drawing.Size(99, 20);
+            this.lblTimeSpent.TabIndex = 4;
+            this.lblTimeSpent.Text = "Time Spent:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1132, 640);
+            this.Controls.Add(this.lblTimeSpent);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.pnlInput);
             this.Controls.Add(this.lblTitle);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.pnlInput.ResumeLayout(false);
             this.pnlInput.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -246,6 +284,9 @@ namespace FolderCrawler
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.RadioButton rbtnDFS;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblTimeSpent;
     }
 }
 
