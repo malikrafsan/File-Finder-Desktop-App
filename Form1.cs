@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
-using Microsoft.Msagl.Core.Geometry;
-using Microsoft.Msagl.Core.Geometry.Curves;
+using System.Runtime.InteropServices;
 
 namespace FolderCrawler
 {
@@ -41,23 +40,100 @@ namespace FolderCrawler
         }
 
         private SearchProps searchProps;
+        private bool mouseDown;
+        private Point offset;
+        private TableLayoutPanel panTable;
 
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn(
+            int nLeftRect,
+            int nTopRect,
+            int nRightRect,
+            int nBottomRect,
+            int nWidthEllipse,
+            int nHeightEllipse
+            );
         public Form1()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 30, 30));
             searchProps = new SearchProps();
+            panTable = new TableLayoutPanel();
             cBoxFindAll.Checked = this.searchProps.findAll;
             if (this.searchProps.method == "BFS")
             {
-                rbtnBFS.Checked = true;
+                rBtnBFS.Checked = true;
             } else
             {
-                rbtnDFS.Checked = true;
+                rBtnDFS.Checked = true;
             }
-            //(this.searchProps.method == "BFS") ? (rbtnBFS.Checked = true) : (rbtnDFS.Checked = true);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            this.searchProps.fileName = txtFileName.Text;
+        }
+
+        private void cBoxFindAll_CheckedChanged(object sender, EventArgs e)
+        {
+            this.searchProps.findAll = cBoxFindAll.Checked;
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(this.searchProps.startDir);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void circularButton1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void circularButton2_Click(object sender, EventArgs e)
+        {
+            this.WindowState = (WindowState == FormWindowState.Normal) ? FormWindowState.Maximized : FormWindowState.Normal;
+            int border = (WindowState == FormWindowState.Normal) ? 30 : 0;
+            this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, border, border));
+        }
+
+        private void circularButton3_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void mouseDown_Event(object sender, MouseEventArgs e)
+        {
+            offset.X = e.X;
+            offset.Y = e.Y;
+            mouseDown = true;
+        }
+
+        private void mouseMove_Event(object sender, MouseEventArgs e)
+        {
+            if (mouseDown)
+            {
+                Point currentScreenPos = PointToScreen(e.Location);
+                Location = new Point(currentScreenPos.X - offset.X, currentScreenPos.Y - offset.Y);
+            }
+        }
+
+        private void mouseUp_Event(object sender, MouseEventArgs e)
+        {
+            mouseDown = false;
+        }
+
+        private void roundedButton1_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderDlg = new FolderBrowserDialog();
             folderDlg.ShowNewFolderButton = true;
@@ -70,17 +146,17 @@ namespace FolderCrawler
             }
         }
 
-        private void txtStartDir_TextChanged(object sender, EventArgs e)
+        private void customRadioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            linkLabel1.Text = this.searchProps.startDir;
+            this.searchProps.method = (rBtnBFS.Checked) ? "BFS" : "DFS";
         }
 
-        private void rbtnBFS_CheckedChanged(object sender, EventArgs e)
+        private void customRadioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            this.searchProps.method = (rbtnBFS.Checked) ? "BFS" : "DFS";
+            this.searchProps.method = (rBtnBFS.Checked) ? "BFS" : "DFS";
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void roundedButton2_Click(object sender, EventArgs e)
         {
             if (this.searchProps.isReady())
             {
@@ -101,12 +177,46 @@ namespace FolderCrawler
                     filesString += ("- " + file + "\n");
                 }
 
-                MessageBox.Show(
-                    "TODO SEARCH: \n" + this.searchProps.props() + "\n\n" + "DIRS 1ST DEPTH: \n" + dirsString + "\n" + "FILES 1ST DEPTH: \n" + filesString
-                );
+                //MessageBox.Show(
+                //    "TODO SEARCH: \n" + this.searchProps.props() + "\n\n" + "DIRS 1ST DEPTH: \n" + dirsString + "\n" + "FILES 1ST DEPTH: \n" + filesString
+                //);
 
                 sw.Stop();
                 lblTimeSpent.Text = "Time Spent: " + sw.ElapsedMilliseconds + " ms";
+
+                LinkLabel[] linkLbls = new LinkLabel[files.Length];
+
+                for (int i =0;i<linkLbls.Count();i++)
+                {
+                    linkLbls[i] = new LinkLabel();
+                }
+
+                int x = 0;
+                foreach (LinkLabel linkLbl in linkLbls)
+                {
+                    Label lbl = new Label();
+                    lbl.Text = "Hello World!";
+                    lbl.Location = new Point(100, 25 + (20*x));
+                    lbl.BringToFront();
+                    panTable.Controls.Add(lbl);
+
+                    //linkLbl.Location = new Point(8, 425 + (20 * x));
+                    //linkLbl.BackColor = Color.Red;
+                    //linkLbl.Text = files[x];
+                    //panTable.Controls.Add(linkLbl);
+                    //x++;
+
+                    //MessageBox.Show("" + linkLbl);
+
+
+                    ////LinkLabel linkLbl = new LinkLabel();
+                    //TextBox linkLbl = new TextBox();
+                    //Controls.Add(linkLbl);
+                    ////linkLbl.Text = files[i];
+                    //linkLbl.Location = new Point(8, 425 + (20 * i));
+                    //linkLbl.BackColor = Color.WhiteSmoke;
+                }
+
 
             }
             else
@@ -115,27 +225,12 @@ namespace FolderCrawler
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void gradientPanel1_Paint(object sender, PaintEventArgs e)
         {
-            this.searchProps.fileName = txtFileName.Text;
+
         }
 
-        private void cBoxFindAll_CheckedChanged(object sender, EventArgs e)
-        {
-            this.searchProps.findAll = cBoxFindAll.Checked;
-        }
-
-        private void rbtnDFS_CheckedChanged(object sender, EventArgs e)
-        {
-            this.searchProps.method = (rbtnBFS.Checked) ? "BFS" : "DFS";
-        }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start(this.searchProps.startDir);
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }
