@@ -52,8 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\DirTree\DirNode.cs" />
-    <Compile Include="Classes\DirTree\DirTree.cs" />
+    <Compile Include="Classes\Utils.cs" />
+    <Compile Include="Classes\DirTree\Node.cs" />
+    <Compile Include="Classes\DirTree\Tree.cs" />
+    <Compile Include="Classes\Crawler\Crawler.cs"/> 
     <Compile Include="CircularButton.cs">
       <SubType>Component</SubType>
     </Compile>
