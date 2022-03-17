@@ -6,44 +6,44 @@ using System.Threading.Tasks;
 
 namespace FolderCrawler.Classes.DirTree
 {
-    class DirNode
+    class Node
     {
         public string dirName;
-        public DirNode parent;
-        public DirNode[] children;
+        public Node parent;
+        public Node[] children;
         public string type; // "directory" or "file"
 
-        public DirNode(string dirName, string type)
+        public Node(string dirName, string type)
         {
             this.dirName = dirName;
             this.type = type;
         }
 
-        public DirNode(string dirName, string type, DirNode parent)
+        public Node(string dirName, string type, Node parent)
         {
             this.dirName = dirName;
             this.type = type;
             this.parent = parent;
         }
 
-        public static bool operator ==(DirNode a, DirNode b)
+        public static bool operator ==(Node a, Node b)
         {
             return a.dirName.Equals(b.dirName);
         }
 
-        public static bool operator !=(DirNode a, DirNode b)
+        public static bool operator !=(Node a, Node b)
         {
             return !a.dirName.Equals(b.dirName);
         }
 
         public override bool Equals(object obj)
         {
-            if (obj == null || !(obj is DirNode))
+            if (obj == null || !(obj is Node))
             {
                 return false;
             } else
             {
-                return this.dirName == ((DirNode) obj).dirName;
+                return this.dirName == ((Node) obj).dirName;
             }
         }
 
@@ -52,7 +52,7 @@ namespace FolderCrawler.Classes.DirTree
             return this.dirName.GetHashCode();
         }
 
-        public void addChildren(DirNode child)
+        public void addChildren(Node child)
         {
             if (this.type == "directory")
             {
