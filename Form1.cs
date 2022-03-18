@@ -42,7 +42,6 @@ namespace FolderCrawler
         private SearchProps searchProps;
         private bool mouseDown;
         private Point offset;
-        private TableLayoutPanel panTable;
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn(
@@ -59,7 +58,6 @@ namespace FolderCrawler
             this.FormBorderStyle = FormBorderStyle.None;
             this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 30, 30));
             searchProps = new SearchProps();
-            panTable = new TableLayoutPanel();
             cBoxFindAll.Checked = this.searchProps.findAll;
             if (this.searchProps.method == "BFS")
             {
@@ -80,16 +78,6 @@ namespace FolderCrawler
             this.searchProps.findAll = cBoxFindAll.Checked;
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(this.searchProps.startDir);
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void circularButton1_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -105,11 +93,6 @@ namespace FolderCrawler
         private void circularButton3_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void mouseDown_Event(object sender, MouseEventArgs e)
@@ -177,47 +160,29 @@ namespace FolderCrawler
                     filesString += ("- " + file + "\n");
                 }
 
-                //MessageBox.Show(
-                //    "TODO SEARCH: \n" + this.searchProps.props() + "\n\n" + "DIRS 1ST DEPTH: \n" + dirsString + "\n" + "FILES 1ST DEPTH: \n" + filesString
-                //);
-
                 sw.Stop();
                 lblTimeSpent.Text = "Time Spent: " + sw.ElapsedMilliseconds + " ms";
 
-                LinkLabel[] linkLbls = new LinkLabel[files.Length];
-
-                for (int i =0;i<linkLbls.Count();i++)
+                resPnl.Controls.Clear();
+                for (int i=0;i<files.Count();i++)
                 {
-                    linkLbls[i] = new LinkLabel();
+                    LinkLabel linkLbl = new LinkLabel();
+                    resPnl.Controls.Add(linkLbl);
+                    linkLbl.Top = 10 + (20 * i);
+                    linkLbl.Left = 5;
+                    linkLbl.Text = files[i];
+                    linkLbl.AutoSize = true;
+                    linkLbl.BackColor = Color.FromArgb(255, 107, 108);
+                    linkLbl.Padding = new Padding(4,4,4,4);
+                    linkLbl.Click += linkLabel_Click;
                 }
 
-                int x = 0;
-                foreach (LinkLabel linkLbl in linkLbls)
+                string str = "";
+                foreach (string file in files)
                 {
-                    Label lbl = new Label();
-                    lbl.Text = "Hello World!";
-                    lbl.Location = new Point(100, 25 + (20*x));
-                    lbl.BringToFront();
-                    panTable.Controls.Add(lbl);
-
-                    //linkLbl.Location = new Point(8, 425 + (20 * x));
-                    //linkLbl.BackColor = Color.Red;
-                    //linkLbl.Text = files[x];
-                    //panTable.Controls.Add(linkLbl);
-                    //x++;
-
-                    //MessageBox.Show("" + linkLbl);
-
-
-                    ////LinkLabel linkLbl = new LinkLabel();
-                    //TextBox linkLbl = new TextBox();
-                    //Controls.Add(linkLbl);
-                    ////linkLbl.Text = files[i];
-                    //linkLbl.Location = new Point(8, 425 + (20 * i));
-                    //linkLbl.BackColor = Color.WhiteSmoke;
+                    str += file + "\n";
                 }
-
-
+                MessageBox.Show(str);
             }
             else
             {
@@ -225,9 +190,10 @@ namespace FolderCrawler
             }
         }
 
-        private void gradientPanel1_Paint(object sender, PaintEventArgs e)
+        private void linkLabel_Click(object sender, EventArgs e)
         {
-
+            var linkLbl = (LinkLabel)sender;
+            Process.Start(linkLbl.Text);
         }
 
         private void label2_Click(object sender, EventArgs e)
