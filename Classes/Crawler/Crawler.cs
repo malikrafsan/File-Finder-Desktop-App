@@ -13,16 +13,14 @@ namespace FolderCrawler.Classes.Crawler
 {
     class Crawler
     {
-        private Tree tree;
-        private List<(Node[] visited, Node[] looked)> frames;
+        public Tree tree;
+        public List<(Node[] visited, Node[] looked)> frames;
 
         public Crawler(string dirname)
         {
             this.tree = new Tree(dirname);
             this.frames = new List<(Node[] visited, Node[] looked)>();
         }
-
-
 
         public Tree DFS(string target)
         {

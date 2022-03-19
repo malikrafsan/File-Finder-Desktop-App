@@ -51,6 +51,7 @@ namespace FolderCrawler
             this.circularButton2 = new FolderCrawler.CircularButton();
             this.circularButton3 = new FolderCrawler.CircularButton();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.pnlGraph = new System.Windows.Forms.Panel();
             this.gradientPanel1.SuspendLayout();
             this.pnlInput.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -62,11 +63,12 @@ namespace FolderCrawler
             this.gradientPanel1.AutoSize = true;
             this.gradientPanel1.ColorBottom = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(59)))), ((int)(((byte)(102)))));
             this.gradientPanel1.ColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(108)))));
+            this.gradientPanel1.Controls.Add(this.pnlGraph);
             this.gradientPanel1.Controls.Add(this.pnlInput);
             this.gradientPanel1.Controls.Add(this.panel1);
             this.gradientPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gradientPanel1.Location = new System.Drawing.Point(0, 0);
-            this.gradientPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gradientPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.gradientPanel1.Name = "gradientPanel1";
             this.gradientPanel1.Size = new System.Drawing.Size(1600, 862);
             this.gradientPanel1.TabIndex = 5;
@@ -90,7 +92,7 @@ namespace FolderCrawler
             this.pnlInput.Controls.Add(this.lblInput);
             this.pnlInput.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlInput.Location = new System.Drawing.Point(0, 86);
-            this.pnlInput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlInput.Margin = new System.Windows.Forms.Padding(4);
             this.pnlInput.Name = "pnlInput";
             this.pnlInput.Size = new System.Drawing.Size(599, 776);
             this.pnlInput.TabIndex = 1;
@@ -126,7 +128,7 @@ namespace FolderCrawler
             this.roundedButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.roundedButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.roundedButton2.Location = new System.Drawing.Point(11, 369);
-            this.roundedButton2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.roundedButton2.Margin = new System.Windows.Forms.Padding(4);
             this.roundedButton2.Name = "roundedButton2";
             this.roundedButton2.OnHoverBorderColor = System.Drawing.Color.Gray;
             this.roundedButton2.OnHoverButtonColor = System.Drawing.Color.Yellow;
@@ -145,7 +147,7 @@ namespace FolderCrawler
             this.rBtnDFS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rBtnDFS.ForeColor = System.Drawing.Color.White;
             this.rBtnDFS.Location = new System.Drawing.Point(248, 319);
-            this.rBtnDFS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rBtnDFS.Margin = new System.Windows.Forms.Padding(4);
             this.rBtnDFS.MinimumSize = new System.Drawing.Size(0, 26);
             this.rBtnDFS.Name = "rBtnDFS";
             this.rBtnDFS.Size = new System.Drawing.Size(77, 28);
@@ -163,7 +165,7 @@ namespace FolderCrawler
             this.rBtnBFS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rBtnBFS.ForeColor = System.Drawing.Color.White;
             this.rBtnBFS.Location = new System.Drawing.Point(15, 319);
-            this.rBtnBFS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rBtnBFS.Margin = new System.Windows.Forms.Padding(4);
             this.rBtnBFS.MinimumSize = new System.Drawing.Size(0, 26);
             this.rBtnBFS.Name = "rBtnBFS";
             this.rBtnBFS.Size = new System.Drawing.Size(76, 28);
@@ -195,7 +197,7 @@ namespace FolderCrawler
             this.roundedButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.roundedButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.roundedButton1.Location = new System.Drawing.Point(5, 113);
-            this.roundedButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.roundedButton1.Margin = new System.Windows.Forms.Padding(4);
             this.roundedButton1.Name = "roundedButton1";
             this.roundedButton1.OnHoverBorderColor = System.Drawing.Color.Gray;
             this.roundedButton1.OnHoverButtonColor = System.Drawing.Color.Yellow;
@@ -227,7 +229,7 @@ namespace FolderCrawler
             this.cBoxFindAll.Font = new System.Drawing.Font("Microsoft PhagsPa", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cBoxFindAll.ForeColor = System.Drawing.Color.White;
             this.cBoxFindAll.Location = new System.Drawing.Point(11, 229);
-            this.cBoxFindAll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cBoxFindAll.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxFindAll.Name = "cBoxFindAll";
             this.cBoxFindAll.Padding = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.cBoxFindAll.Size = new System.Drawing.Size(195, 40);
@@ -240,7 +242,7 @@ namespace FolderCrawler
             // 
             this.txtFileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFileName.Location = new System.Drawing.Point(11, 197);
-            this.txtFileName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFileName.Margin = new System.Windows.Forms.Padding(4);
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(529, 30);
             this.txtFileName.TabIndex = 5;
@@ -263,7 +265,7 @@ namespace FolderCrawler
             this.txtStartDir.Enabled = false;
             this.txtStartDir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtStartDir.Location = new System.Drawing.Point(8, 78);
-            this.txtStartDir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtStartDir.Margin = new System.Windows.Forms.Padding(4);
             this.txtStartDir.Name = "txtStartDir";
             this.txtStartDir.Size = new System.Drawing.Size(532, 30);
             this.txtStartDir.TabIndex = 2;
@@ -303,7 +305,7 @@ namespace FolderCrawler
             this.panel1.Controls.Add(this.lblTitle);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1600, 86);
             this.panel1.TabIndex = 1;
@@ -313,7 +315,7 @@ namespace FolderCrawler
             this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(78)))), ((int)(((byte)(61)))), ((int)(((byte)(66)))));
             this.pictureBox1.Image = global::FolderCrawler.Properties.Resources.icon;
             this.pictureBox1.Location = new System.Drawing.Point(16, 11);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(80, 59);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -328,7 +330,7 @@ namespace FolderCrawler
             this.circularButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.circularButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.circularButton1.Location = new System.Drawing.Point(1539, 16);
-            this.circularButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.circularButton1.Margin = new System.Windows.Forms.Padding(4);
             this.circularButton1.Name = "circularButton1";
             this.circularButton1.Size = new System.Drawing.Size(43, 39);
             this.circularButton1.TabIndex = 2;
@@ -344,7 +346,7 @@ namespace FolderCrawler
             this.circularButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.circularButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.circularButton2.Location = new System.Drawing.Point(1477, 16);
-            this.circularButton2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.circularButton2.Margin = new System.Windows.Forms.Padding(4);
             this.circularButton2.Name = "circularButton2";
             this.circularButton2.Size = new System.Drawing.Size(43, 39);
             this.circularButton2.TabIndex = 3;
@@ -360,7 +362,7 @@ namespace FolderCrawler
             this.circularButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.circularButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.circularButton3.Location = new System.Drawing.Point(1416, 17);
-            this.circularButton3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.circularButton3.Margin = new System.Windows.Forms.Padding(4);
             this.circularButton3.Name = "circularButton3";
             this.circularButton3.Size = new System.Drawing.Size(43, 39);
             this.circularButton3.TabIndex = 4;
@@ -385,6 +387,14 @@ namespace FolderCrawler
             this.lblTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mouseMove_Event);
             this.lblTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mouseUp_Event);
             // 
+            // pnlGraph
+            // 
+            this.pnlGraph.BackColor = System.Drawing.Color.Transparent;
+            this.pnlGraph.Location = new System.Drawing.Point(622, 105);
+            this.pnlGraph.Name = "pnlGraph";
+            this.pnlGraph.Size = new System.Drawing.Size(959, 722);
+            this.pnlGraph.TabIndex = 2;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -392,7 +402,7 @@ namespace FolderCrawler
             this.ClientSize = new System.Drawing.Size(1600, 862);
             this.Controls.Add(this.gradientPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
@@ -429,6 +439,7 @@ namespace FolderCrawler
         private CustomRadioButton rBtnDFS;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel resPnl;
+        private System.Windows.Forms.Panel pnlGraph;
     }
 }
 

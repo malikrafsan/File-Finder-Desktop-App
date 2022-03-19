@@ -10,6 +10,11 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Microsoft.Msagl.Drawing;
+using Microsoft.Msagl.Core.Geometry.Curves;
+using Microsoft.Msagl.Core.Layout;
+using Microsoft.Msagl.DebugHelpers.Persistence;
+using Microsoft.Msagl.Layout.Layered;
 
 namespace FolderCrawler
 {
@@ -66,6 +71,7 @@ namespace FolderCrawler
             {
                 rBtnDFS.Checked = true;
             }
+            this.viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -139,12 +145,43 @@ namespace FolderCrawler
             this.searchProps.method = (rBtnBFS.Checked) ? "BFS" : "DFS";
         }
 
+        private void fillGraph(Microsoft.Msagl.Drawing.Graph graph, Classes.DirTree.Tree resTree)
+        {
+            //if (resTree)
+            string[] arrParent = resTree.root.dirName.Split('\\');
+            string parent = arrParent[arrParent.Length - 1]; 
+            foreach (Classes.DirTree.Node lookedNode in resTree.visited) {
+                string[] arrChild = lookedNode.dirName.Split('\\');
+                string child = arrChild[arrChild.Length - 1];
+                graph.AddEdge(parent, child);
+            }
+        }
+
+        private Microsoft.Msagl.GraphViewerGdi.GViewer viewer;
+        private Microsoft.Msagl.Drawing.Graph graph;
+
         private void roundedButton2_Click(object sender, EventArgs e)
         {
             if (this.searchProps.isReady())
             {
+                Classes.Crawler.Crawler c = new Classes.Crawler.Crawler(this.searchProps.startDir);
+
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
+                Classes.DirTree.Tree resultTree = (this.searchProps.method == "BFS") ? c.BFS(this.searchProps.fileName) : c.DFS(this.searchProps.fileName);
+                sw.Stop();
+                
+                //create a graph object 
+                this.graph = new Microsoft.Msagl.Drawing.Graph("graph");
+
+                this.fillGraph(graph, resultTree);
+
+                viewer.Graph = graph;
+                pnlGraph.SuspendLayout();
+                viewer.Dock = DockStyle.Fill;
+                pnlGraph.Controls.Add(viewer);
+                pnlGraph.ResumeLayout();
+                //var g = new GeometryGraph();
 
                 string[] files = Directory.GetFiles(this.searchProps.startDir);
                 string[] dirs = Directory.GetDirectories(this.searchProps.startDir);
@@ -160,7 +197,6 @@ namespace FolderCrawler
                     filesString += ("- " + file + "\n");
                 }
 
-                sw.Stop();
                 lblTimeSpent.Text = "Time Spent: " + sw.ElapsedMilliseconds + " ms";
 
                 resPnl.Controls.Clear();
@@ -172,7 +208,7 @@ namespace FolderCrawler
                     linkLbl.Left = 5;
                     linkLbl.Text = files[i];
                     linkLbl.AutoSize = true;
-                    linkLbl.BackColor = Color.FromArgb(255, 107, 108);
+                    linkLbl.BackColor = System.Drawing.Color.FromArgb(255, 107, 108);
                     linkLbl.Padding = new Padding(4,4,4,4);
                     linkLbl.Click += linkLabel_Click;
                 }
