@@ -62,7 +62,6 @@ namespace FolderCrawler.Classes.Crawler
                     foreach (Node node in looked)
                     {
                         result.Add(node);
-                        Console.WriteLine(result.Count);
                     }
                     if (!findAll)
                     {
@@ -184,10 +183,10 @@ namespace FolderCrawler.Classes.Crawler
                         foreach (Node node in looked)
                         {
                             result.Add(node);
-                            Console.WriteLine(result.Count);
                         }
                         if (!findAll)
                         {
+                            curNode = child;
                             break;
                         } else
                         {

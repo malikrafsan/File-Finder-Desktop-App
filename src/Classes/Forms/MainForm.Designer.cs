@@ -32,6 +32,8 @@ namespace FolderCrawler
             this.gradientPanel1 = new FolderCrawler.GradientPanel();
             this.pnlGraph = new System.Windows.Forms.Panel();
             this.pnlInput = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.delayInput = new System.Windows.Forms.NumericUpDown();
@@ -79,14 +81,18 @@ namespace FolderCrawler
             // pnlGraph
             // 
             this.pnlGraph.BackColor = System.Drawing.Color.Transparent;
-            this.pnlGraph.Location = new System.Drawing.Point(480, 93);
+            this.pnlGraph.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlGraph.Location = new System.Drawing.Point(449, 70);
             this.pnlGraph.Name = "pnlGraph";
-            this.pnlGraph.Size = new System.Drawing.Size(959, 722);
+            this.pnlGraph.Padding = new System.Windows.Forms.Padding(15);
+            this.pnlGraph.Size = new System.Drawing.Size(751, 630);
             this.pnlGraph.TabIndex = 2;
             // 
             // pnlInput
             // 
             this.pnlInput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(117)))), ((int)(((byte)(203)))));
+            this.pnlInput.Controls.Add(this.label5);
+            this.pnlInput.Controls.Add(this.comboBox1);
             this.pnlInput.Controls.Add(this.label4);
             this.pnlInput.Controls.Add(this.label3);
             this.pnlInput.Controls.Add(this.delayInput);
@@ -110,12 +116,36 @@ namespace FolderCrawler
             this.pnlInput.Size = new System.Drawing.Size(449, 630);
             this.pnlInput.TabIndex = 1;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(4, 314);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(165, 20);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Choose Graph Layout";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Sugiyama",
+            "MDS",
+            "Ranking"});
+            this.comboBox1.Location = new System.Drawing.Point(8, 346);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(203, 21);
+            this.comboBox1.TabIndex = 0;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(215, 300);
+            this.label4.Location = new System.Drawing.Point(311, 258);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Padding = new System.Windows.Forms.Padding(5);
@@ -128,7 +158,7 @@ namespace FolderCrawler
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(9, 300);
+            this.label3.Location = new System.Drawing.Point(232, 228);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Padding = new System.Windows.Forms.Padding(5);
@@ -139,7 +169,7 @@ namespace FolderCrawler
             // delayInput
             // 
             this.delayInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.delayInput.Location = new System.Drawing.Point(144, 302);
+            this.delayInput.Location = new System.Drawing.Point(240, 258);
             this.delayInput.Name = "delayInput";
             this.delayInput.Size = new System.Drawing.Size(66, 26);
             this.delayInput.TabIndex = 15;
@@ -148,11 +178,11 @@ namespace FolderCrawler
             // 
             this.resPnl.AutoScroll = true;
             this.resPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(117)))), ((int)(((byte)(203)))));
-            this.resPnl.Location = new System.Drawing.Point(1, 466);
+            this.resPnl.Location = new System.Drawing.Point(1, 445);
             this.resPnl.Margin = new System.Windows.Forms.Padding(0);
             this.resPnl.Name = "resPnl";
             this.resPnl.Padding = new System.Windows.Forms.Padding(5, 10, 5, 5);
-            this.resPnl.Size = new System.Drawing.Size(448, 164);
+            this.resPnl.Size = new System.Drawing.Size(448, 185);
             this.resPnl.TabIndex = 14;
             // 
             // lblTimeSpent
@@ -175,12 +205,12 @@ namespace FolderCrawler
             this.roundedButton2.FlatAppearance.BorderSize = 0;
             this.roundedButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.roundedButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.roundedButton2.Location = new System.Drawing.Point(9, 346);
+            this.roundedButton2.Location = new System.Drawing.Point(217, 333);
             this.roundedButton2.Name = "roundedButton2";
             this.roundedButton2.OnHoverBorderColor = System.Drawing.Color.Gray;
             this.roundedButton2.OnHoverButtonColor = System.Drawing.Color.Yellow;
             this.roundedButton2.OnHoverTextColor = System.Drawing.Color.Gray;
-            this.roundedButton2.Size = new System.Drawing.Size(398, 40);
+            this.roundedButton2.Size = new System.Drawing.Size(189, 40);
             this.roundedButton2.TabIndex = 13;
             this.roundedButton2.Text = "Search";
             this.roundedButton2.TextColor = System.Drawing.Color.White;
@@ -193,7 +223,7 @@ namespace FolderCrawler
             this.rBtnDFS.CheckColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(210)))), ((int)(((byte)(111)))));
             this.rBtnDFS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rBtnDFS.ForeColor = System.Drawing.Color.White;
-            this.rBtnDFS.Location = new System.Drawing.Point(186, 259);
+            this.rBtnDFS.Location = new System.Drawing.Point(118, 259);
             this.rBtnDFS.MinimumSize = new System.Drawing.Size(0, 21);
             this.rBtnDFS.Name = "rBtnDFS";
             this.rBtnDFS.Size = new System.Drawing.Size(68, 22);
@@ -467,6 +497,8 @@ namespace FolderCrawler
         private System.Windows.Forms.NumericUpDown delayInput;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label5;
     }
 }
 

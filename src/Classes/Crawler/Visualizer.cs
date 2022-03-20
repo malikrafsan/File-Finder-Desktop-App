@@ -27,10 +27,12 @@ namespace FolderCrawler.Classes.Crawler
             this.frames = crawler.frames.ToArray();
         }
 
-        public async void Visualize(Panel target, int delay)
+        public async void Visualize(Panel target, int delay, LayoutMethod layoutGraph)
         { 
             GViewer viewer = new GViewer();
             viewer.Dock = DockStyle.Fill;
+            viewer.DrawingPanel.BackColor = System.Drawing.Color.FromArgb(13, 59, 102);
+            viewer.CurrentLayoutMethod = layoutGraph;
             target.SuspendLayout();
             target.Controls.Clear();
             target.Controls.Add(viewer);

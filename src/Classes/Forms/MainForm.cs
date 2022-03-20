@@ -47,6 +47,7 @@ namespace FolderCrawler
         private SearchProps searchProps;
         private bool mouseDown;
         private Point offset;
+        private Microsoft.Msagl.GraphViewerGdi.LayoutMethod layoutGraph;
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn(
@@ -72,6 +73,7 @@ namespace FolderCrawler
                 rBtnDFS.Checked = true;
             }
             this.viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
+            layoutGraph = Microsoft.Msagl.GraphViewerGdi.LayoutMethod.MDS;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -167,15 +169,61 @@ namespace FolderCrawler
 
                 //create a graph object 
 
-                v.Visualize(pnlGraph, Convert.ToInt32(Math.Round(this.delayInput.Value, 0)));
+                v.Visualize(pnlGraph, Convert.ToInt32(Math.Round(this.delayInput.Value, 0)), this.layoutGraph);
 
                 // display time spent
 
                 this.lblTimeSpent.Text = "Time Spent: " + sw.ElapsedMilliseconds + " ms";
+
+                resPnl.Controls.Clear();
+
+                string[] results = c.GetResults(this.searchProps.fileName);
+
+                for (int i=0;i<results.Length;i++)
+                {
+                    LinkLabel linkLbl = new LinkLabel();
+                    resPnl.Controls.Add(linkLbl);
+                    linkLbl.Top = 10 + (20 * i);
+                    linkLbl.Left = 5;
+                    linkLbl.Text = results[i];
+                    linkLbl.AutoSize = true;
+                    linkLbl.BackColor = System.Drawing.Color.FromArgb(255, 107, 108);
+                    linkLbl.Padding = new Padding(4, 4, 4, 4);
+                    linkLbl.Click += linkLabel_Click;
+                }
             }
             else
             {
                 MessageBox.Show("PLEASE FILL START DIRECTORY AND FILE NAME FIRST\n" + this.searchProps.props());
+            }
+        }
+
+        private void linkLabel_Click(object sender, EventArgs e)
+        {
+            var linkLbl = (LinkLabel)sender;
+            string[] arrChild = linkLbl.Text.Split('\\');
+            string[] arrParent = new string[arrChild.Length-1];
+            for (int i = 0; i < arrChild.Length - 1; i++)
+            {
+                arrParent[i] = arrChild[i];
+            }
+            string parent = string.Join("\\", arrParent);
+            Process.Start(parent);
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (this.comboBox1.SelectedIndex)
+            {
+                case 0:
+                    this.layoutGraph = Microsoft.Msagl.GraphViewerGdi.LayoutMethod.SugiyamaScheme;
+                    break;
+                case 1:
+                    this.layoutGraph = Microsoft.Msagl.GraphViewerGdi.LayoutMethod.MDS;
+                    break;
+                case 2:
+                    this.layoutGraph = Microsoft.Msagl.GraphViewerGdi.LayoutMethod.Ranking;
+                    break;
             }
         }
     }
