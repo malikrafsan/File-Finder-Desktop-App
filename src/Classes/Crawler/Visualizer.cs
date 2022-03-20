@@ -39,7 +39,7 @@ namespace FolderCrawler.Classes.Crawler
             {
                 Graph temp = VisualizeTree(this.tree, frame);
                 viewer.Graph = temp;
-                await Task.Delay(500);
+                await Task.Delay(delay);
             }
         }
 

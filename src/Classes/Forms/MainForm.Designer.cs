@@ -32,6 +32,9 @@ namespace FolderCrawler
             this.gradientPanel1 = new FolderCrawler.GradientPanel();
             this.pnlGraph = new System.Windows.Forms.Panel();
             this.pnlInput = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.delayInput = new System.Windows.Forms.NumericUpDown();
             this.resPnl = new System.Windows.Forms.Panel();
             this.lblTimeSpent = new System.Windows.Forms.Label();
             this.roundedButton2 = new FolderCrawler.RoundedButton();
@@ -54,6 +57,7 @@ namespace FolderCrawler
             this.lblTitle = new System.Windows.Forms.Label();
             this.gradientPanel1.SuspendLayout();
             this.pnlInput.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.delayInput)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -83,6 +87,9 @@ namespace FolderCrawler
             // pnlInput
             // 
             this.pnlInput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(117)))), ((int)(((byte)(203)))));
+            this.pnlInput.Controls.Add(this.label4);
+            this.pnlInput.Controls.Add(this.label3);
+            this.pnlInput.Controls.Add(this.delayInput);
             this.pnlInput.Controls.Add(this.resPnl);
             this.pnlInput.Controls.Add(this.lblTimeSpent);
             this.pnlInput.Controls.Add(this.roundedButton2);
@@ -103,15 +110,49 @@ namespace FolderCrawler
             this.pnlInput.Size = new System.Drawing.Size(449, 630);
             this.pnlInput.TabIndex = 1;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(215, 300);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Padding = new System.Windows.Forms.Padding(5);
+            this.label4.Size = new System.Drawing.Size(39, 28);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "ms";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(9, 300);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Padding = new System.Windows.Forms.Padding(5);
+            this.label3.Size = new System.Drawing.Size(130, 28);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Visualizer Delay: ";
+            // 
+            // delayInput
+            // 
+            this.delayInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.delayInput.Location = new System.Drawing.Point(144, 302);
+            this.delayInput.Name = "delayInput";
+            this.delayInput.Size = new System.Drawing.Size(66, 26);
+            this.delayInput.TabIndex = 15;
+            // 
             // resPnl
             // 
             this.resPnl.AutoScroll = true;
             this.resPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(117)))), ((int)(((byte)(203)))));
-            this.resPnl.Location = new System.Drawing.Point(1, 436);
+            this.resPnl.Location = new System.Drawing.Point(1, 466);
             this.resPnl.Margin = new System.Windows.Forms.Padding(0);
             this.resPnl.Name = "resPnl";
             this.resPnl.Padding = new System.Windows.Forms.Padding(5, 10, 5, 5);
-            this.resPnl.Size = new System.Drawing.Size(448, 194);
+            this.resPnl.Size = new System.Drawing.Size(448, 164);
             this.resPnl.TabIndex = 14;
             // 
             // lblTimeSpent
@@ -119,12 +160,13 @@ namespace FolderCrawler
             this.lblTimeSpent.AutoSize = true;
             this.lblTimeSpent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTimeSpent.ForeColor = System.Drawing.Color.White;
-            this.lblTimeSpent.Location = new System.Drawing.Point(8, 365);
+            this.lblTimeSpent.Location = new System.Drawing.Point(5, 389);
             this.lblTimeSpent.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTimeSpent.Name = "lblTimeSpent";
-            this.lblTimeSpent.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.lblTimeSpent.Size = new System.Drawing.Size(10, 28);
+            this.lblTimeSpent.Padding = new System.Windows.Forms.Padding(5);
+            this.lblTimeSpent.Size = new System.Drawing.Size(99, 28);
             this.lblTimeSpent.TabIndex = 4;
+            this.lblTimeSpent.Text = "Time spent: ";
             // 
             // roundedButton2
             // 
@@ -133,7 +175,7 @@ namespace FolderCrawler
             this.roundedButton2.FlatAppearance.BorderSize = 0;
             this.roundedButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.roundedButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.roundedButton2.Location = new System.Drawing.Point(8, 300);
+            this.roundedButton2.Location = new System.Drawing.Point(9, 346);
             this.roundedButton2.Name = "roundedButton2";
             this.roundedButton2.OnHoverBorderColor = System.Drawing.Color.Gray;
             this.roundedButton2.OnHoverButtonColor = System.Drawing.Color.Yellow;
@@ -184,13 +226,13 @@ namespace FolderCrawler
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(8, 407);
+            this.label2.Location = new System.Drawing.Point(5, 417);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.label2.Size = new System.Drawing.Size(79, 28);
+            this.label2.Padding = new System.Windows.Forms.Padding(5);
+            this.label2.Size = new System.Drawing.Size(83, 28);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Path File:";
+            this.label2.Text = "File Path: ";
             // 
             // roundedButton1
             // 
@@ -231,7 +273,7 @@ namespace FolderCrawler
             this.cBoxFindAll.ForeColor = System.Drawing.Color.White;
             this.cBoxFindAll.Location = new System.Drawing.Point(8, 186);
             this.cBoxFindAll.Name = "cBoxFindAll";
-            this.cBoxFindAll.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.cBoxFindAll.Padding = new System.Windows.Forms.Padding(5);
             this.cBoxFindAll.Size = new System.Drawing.Size(154, 34);
             this.cBoxFindAll.TabIndex = 6;
             this.cBoxFindAll.Text = "Find all occurence";
@@ -383,13 +425,14 @@ namespace FolderCrawler
             this.ClientSize = new System.Drawing.Size(1200, 700);
             this.Controls.Add(this.gradientPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.gradientPanel1.ResumeLayout(false);
             this.pnlInput.ResumeLayout(false);
             this.pnlInput.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.delayInput)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -421,6 +464,9 @@ namespace FolderCrawler
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel resPnl;
         private System.Windows.Forms.Panel pnlGraph;
+        private System.Windows.Forms.NumericUpDown delayInput;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
 
