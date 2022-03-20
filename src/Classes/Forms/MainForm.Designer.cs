@@ -1,7 +1,7 @@
 ﻿
 namespace FolderCrawler
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -75,12 +75,10 @@ namespace FolderCrawler
             // pnlGraph
             // 
             this.pnlGraph.BackColor = System.Drawing.Color.Transparent;
-            this.pnlGraph.Location = new System.Drawing.Point(466, 85);
-            this.pnlGraph.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlGraph.Location = new System.Drawing.Point(622, 105);
             this.pnlGraph.Name = "pnlGraph";
-            this.pnlGraph.Size = new System.Drawing.Size(719, 587);
+            this.pnlGraph.Size = new System.Drawing.Size(959, 722);
             this.pnlGraph.TabIndex = 2;
-            this.pnlGraph.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlGraph_Paint);
             // 
             // pnlInput
             // 
@@ -194,7 +192,6 @@ namespace FolderCrawler
             this.label2.Size = new System.Drawing.Size(79, 28);
             this.label2.TabIndex = 3;
             this.label2.Text = "Path File:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // roundedButton1
             // 
@@ -380,14 +377,15 @@ namespace FolderCrawler
             this.lblTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mouseMove_Event);
             this.lblTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mouseUp_Event);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 700);
             this.Controls.Add(this.gradientPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form1";
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.gradientPanel1.ResumeLayout(false);

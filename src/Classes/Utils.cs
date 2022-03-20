@@ -8,7 +8,7 @@ namespace FolderCrawler.Classes
 {
     class Utils
     {
-        public static string getDirName(string fullDir)
+        public static string GetDirName(string fullDir)
         {
             return fullDir.Split('\\').Last();
         }

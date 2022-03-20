@@ -18,7 +18,7 @@ using Microsoft.Msagl.Layout.Layered;
 
 namespace FolderCrawler
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         class SearchProps 
         {
@@ -57,7 +57,7 @@ namespace FolderCrawler
             int nWidthEllipse,
             int nHeightEllipse
             );
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.None;
@@ -145,111 +145,34 @@ namespace FolderCrawler
             this.searchProps.method = (rBtnBFS.Checked) ? "BFS" : "DFS";
         }
 
-        private void fillGraph(Microsoft.Msagl.Drawing.Graph graph, Classes.DirTree.Tree resTree)
-        {
-            string[] arrParent = resTree.root.dirName.Split('\\');
-            string parent = arrParent[arrParent.Length - 1];  // parent utama
-            foreach (Classes.DirTree.Node lookedNode in resTree.visited) {
-                string[] arrChild = lookedNode.dirName.Split('\\');
-                string child = arrChild[arrChild.Length - 1];
-                if (child == this.searchProps.fileName)
-                {
-                    // give blue color
-                    graph.AddEdge(parent, child).Attr.Color = Microsoft.Msagl.Drawing.Color.Blue;
-                    Microsoft.Msagl.Drawing.Node childNode = graph.FindNode(child);
-                    childNode.Attr.Color = Microsoft.Msagl.Drawing.Color.Blue;
-                }
-                else
-                {
-                    // give black color (default)
-                    graph.AddEdge(parent, child);
-                }
-            }
-        }
 
-        private Microsoft.Msagl.GraphViewerGdi.GViewer viewer;
-        private Microsoft.Msagl.Drawing.Graph graph;
+        public Microsoft.Msagl.GraphViewerGdi.GViewer viewer;
 
         private void roundedButton2_Click(object sender, EventArgs e)
         {
             if (this.searchProps.isReady())
             {
                 Classes.Crawler.Crawler c = new Classes.Crawler.Crawler(this.searchProps.startDir);
-
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
-                Classes.DirTree.Tree resultTree = (this.searchProps.method == "BFS") ? c.BFS(this.searchProps.fileName) : c.DFS(this.searchProps.fileName);
+                if (this.searchProps.method == "BFS")
+                {
+                    c.BFS(this.searchProps.fileName);
+                } else
+                {
+                    c.DFS(this.searchProps.fileName);
+                }
                 sw.Stop();
-                
+                Classes.Crawler.Visualizer v = new Classes.Crawler.Visualizer(c.tree, c.frames.ToArray());
+
                 //create a graph object 
-                this.graph = new Microsoft.Msagl.Drawing.Graph("graph");
 
-                this.fillGraph(graph, resultTree);
-
-                viewer.Graph = graph;
-                pnlGraph.SuspendLayout();
-                viewer.Dock = DockStyle.Fill;
-                pnlGraph.Controls.Add(viewer);
-                pnlGraph.ResumeLayout();
-                //var g = new GeometryGraph();
-
-                string[] files = Directory.GetFiles(this.searchProps.startDir);
-                string[] dirs = Directory.GetDirectories(this.searchProps.startDir);
-
-                string dirsString = "";
-                foreach (string dir in dirs)
-                {
-                    dirsString += ("- " + dir + "\n");
-                }
-                string filesString = "";
-                foreach (string file in files)
-                {
-                    filesString += ("- " + file + "\n");
-                }
-
-                lblTimeSpent.Text = "Time Spent: " + sw.ElapsedMilliseconds + " ms";
-
-                resPnl.Controls.Clear();
-                for (int i=0;i<files.Count();i++)
-                {
-                    LinkLabel linkLbl = new LinkLabel();
-                    resPnl.Controls.Add(linkLbl);
-                    linkLbl.Top = 10 + (20 * i);
-                    linkLbl.Left = 5;
-                    linkLbl.Text = files[i];
-                    linkLbl.AutoSize = true;
-                    linkLbl.BackColor = System.Drawing.Color.FromArgb(255, 107, 108);
-                    linkLbl.Padding = new Padding(4,4,4,4);
-                    linkLbl.Click += linkLabel_Click;
-                }
-
-                string str = "";
-                foreach (string file in files)
-                {
-                    str += file + "\n";
-                }
-                MessageBox.Show(str);
+                v.Visualize(pnlGraph, 50);
             }
             else
             {
                 MessageBox.Show("PLEASE FILL START DIRECTORY AND FILE NAME FIRST\n" + this.searchProps.props());
             }
-        }
-
-        private void linkLabel_Click(object sender, EventArgs e)
-        {
-            var linkLbl = (LinkLabel)sender;
-            Process.Start(linkLbl.Text);
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pnlGraph_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }
