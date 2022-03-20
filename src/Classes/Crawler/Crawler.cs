@@ -22,7 +22,7 @@ namespace FolderCrawler.Classes.Crawler
             this.frames = new List<(Node[] visited, Node[] looked)>();
         }
 
-        public Tree DFS(string target)
+        public void DFS(string target)
         {
             HashSet<Node> visited = new HashSet<Node>();    // Array of visited nodes
             Stack<Node> looked = new Stack<Node>();         // Array of looked nodes (in path from startDir into curNode)
@@ -33,7 +33,7 @@ namespace FolderCrawler.Classes.Crawler
             void Backtrack()
             {
                 looked.Pop();
-                this.frames.Append((visited.ToArray(), looked.ToArray()));
+                this.frames.Add((visited.ToArray(), looked.ToArray()));
             }
 
             // Function to move into node
@@ -41,7 +41,7 @@ namespace FolderCrawler.Classes.Crawler
             {
                 visited.Add(node);
                 looked.Push(node);
-                this.frames.Append((visited.ToArray(), looked.ToArray()));
+                this.frames.Add((visited.ToArray(), looked.ToArray()));
             }
 
             // Initialize Search
@@ -49,53 +49,64 @@ namespace FolderCrawler.Classes.Crawler
             curNode = this.tree.root;
             MoveTo(this.tree.root);
 
-            do
+            while (!flag || curNode.parent is object)
             {
-                // Get childern for current node
-                curNode.FindChildren();
-                // If target found, terminate search
-                if (Utils.getDirName(curNode.dirName).Equals(target))
+                if (curNode.children.Count == 0)
+                {
+                    curNode.FindChildren();
+                }
+                // Target is found
+                if (Utils.GetDirName(curNode.dirName).Equals(target))
                 {
                     break;
                 }
 
-                
-                // If all children is already visited, backtrack until it's found possible search route
-                while ((flag || curNode.type.Equals("file")) && curNode.parent is object)
-                {
-                    flag = curNode.children.Aggregate(true, (acc, x) => acc && visited.Contains(x));
-                    curNode = curNode.parent;
-                    Backtrack();
-                }
 
-                // Visit the first unvisited children from current node
-                foreach (Node child in curNode.children)
+                // Flag is true if there are no children to check
+                flag = true;
+                if (curNode.children.Count > 0)
                 {
-                    if (!visited.Contains(child))
+                    foreach (Node child in curNode.children)
                     {
-                        curNode = child;
-                        MoveTo(child);
-                        break;
+                        if (!visited.Contains(child))
+                        {
+                            flag = false;
+                            break;
+                        }
                     }
                 }
-            } while (!flag || curNode.parent is object);
+
+                // Backtrack if there's no children to check and curNode have parent
+                if (flag && curNode.parent is object)
+                {
+                    curNode = curNode.parent;
+                    Backtrack();
+                    flag = false;
+                } else
+                // Go to unvisited children;
+                {
+                    foreach (Node child in curNode.children)
+                    {
+                        if (!visited.Contains(child))
+                        {
+                            curNode = child;
+                            MoveTo(child);
+                            break;
+                        }
+                    }
+                }
+            }
 
 
             // If target isn't found, clear the looked array
-            if (!Utils.getDirName(curNode.dirName).Equals(target))
+            if (!Utils.GetDirName(curNode.dirName).Equals(target))
             {
                 looked.Clear();
-                this.frames.Append((visited.ToArray(), looked.ToArray()));
+                this.frames.Add((visited.ToArray(), looked.ToArray()));
             }
-
-            // Set final state of tree
-            this.tree.visited = visited.ToArray();
-            this.tree.looked = looked.ToArray();
-
-            return this.tree;
         }
 
-        public Tree BFS(string target)
+        public void BFS(string target)
         {
             HashSet<Node> visited = new HashSet<Node>();    // Array of visited nodes
             Stack<Node> looked = new Stack<Node>();         // Array of looked nodes (in path from startDir into curNode)
@@ -106,7 +117,6 @@ namespace FolderCrawler.Classes.Crawler
             void Backtrack()
             {
                 looked.Pop();
-                this.frames.Append((visited.ToArray(), looked.ToArray()));
             }
 
             // Function to move into node
@@ -114,7 +124,7 @@ namespace FolderCrawler.Classes.Crawler
             {
                 visited.Add(node);
                 looked.Push(node);
-                this.frames.Append((visited.ToArray(), looked.ToArray()));
+                this.frames.Add((visited.ToArray(), looked.ToArray()));
             }
 
             // Initialize Search
@@ -122,6 +132,7 @@ namespace FolderCrawler.Classes.Crawler
 
             do
             {
+                
                 if (!this.tree.root.Equals(queue.Peek()))
                 {
                     // Backtrack until it's ancestor of next node
@@ -168,7 +179,7 @@ namespace FolderCrawler.Classes.Crawler
                     // Move to the child
                     MoveTo(child);
                     // Terminates if the child is the target
-                    if (Utils.getDirName(child.dirName).Equals(target))
+                    if (Utils.GetDirName(child.dirName).Equals(target))
                     {
                         curNode = child;
                         break;
@@ -182,19 +193,14 @@ namespace FolderCrawler.Classes.Crawler
                         Backtrack();
                     }
                 }
-            } while (!Utils.getDirName(curNode.dirName).Equals(target) && queue.Count > 0);
+            } while (!Utils.GetDirName(curNode.dirName).Equals(target) && queue.Count > 0);
 
             // If target isn't found, clear the looked array
-            if (!Utils.getDirName(curNode.dirName).Equals(target))
+            if (!Utils.GetDirName(curNode.dirName).Equals(target))
             {
                 looked.Clear();
-                this.frames.Append((visited.ToArray(), looked.ToArray()));
+                this.frames.Add((visited.ToArray(), looked.ToArray()));
             }
-
-            // Set final state of tree
-            this.tree.visited = visited.ToArray();
-            this.tree.looked = looked.ToArray();
-            return this.tree;
         }
     }
 }

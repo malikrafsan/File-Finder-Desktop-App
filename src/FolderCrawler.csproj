@@ -34,7 +34,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Build|AnyCPU'">
     <OutputPath>..\bin\</OutputPath>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Crawler\Visualizer.cs" />
     <Compile Include="Classes\Utils.cs" />
     <Compile Include="Classes\DirTree\Node.cs" />
     <Compile Include="Classes\DirTree\Tree.cs" />
