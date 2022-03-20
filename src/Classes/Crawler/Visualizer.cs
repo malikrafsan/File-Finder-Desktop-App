@@ -14,8 +14,8 @@ namespace FolderCrawler.Classes.Crawler
     {
         private DirTree.Tree tree;
         
-        private (DirTree.Node[] visited, DirTree.Node[] looked)[] frames;
-        public Visualizer(DirTree.Tree tree, (DirTree.Node[] visited, DirTree.Node[] looked)[] frames)
+        private (DirTree.Node[] visited, DirTree.Node[] looked, DirTree.Node[] result)[] frames;
+        public Visualizer(DirTree.Tree tree, (DirTree.Node[] visited, DirTree.Node[] looked, DirTree.Node[] result)[] frames)
         {
             this.tree = tree;
             this.frames = frames;
@@ -30,19 +30,20 @@ namespace FolderCrawler.Classes.Crawler
         public async void Visualize(Panel target, int delay)
         { 
             GViewer viewer = new GViewer();
+            viewer.Dock = DockStyle.Fill;
             target.SuspendLayout();
             target.Controls.Clear();
             target.Controls.Add(viewer);
             target.ResumeLayout();
-            foreach ((DirTree.Node[] visited, DirTree.Node[] looked) frame in this.frames)
+            foreach ((DirTree.Node[] visited, DirTree.Node[] looked, DirTree.Node[] result) frame in this.frames)
             {
                 Graph temp = VisualizeTree(this.tree, frame);
                 viewer.Graph = temp;
-                await Task.Delay(delay);
+                await Task.Delay(500);
             }
         }
 
-        public Graph VisualizeTree(DirTree.Tree tree, (DirTree.Node[] visited, DirTree.Node[] looked) frame)
+        public Graph VisualizeTree(DirTree.Tree tree, (DirTree.Node[] visited, DirTree.Node[] looked, DirTree.Node[] result) frame)
         {
             Graph graph = new Graph();
             Node node = graph.AddNode(tree.root.dirName);
@@ -50,6 +51,10 @@ namespace FolderCrawler.Classes.Crawler
             if (frame.looked.Contains(tree.root))
             {
                 node.Attr.Color = Color.Blue;
+            }
+            else if (frame.result.Contains(tree.root))
+            {
+                node.Attr.Color = Color.Green;
             }
             else if (frame.visited.Contains(tree.root))
             {
@@ -59,7 +64,7 @@ namespace FolderCrawler.Classes.Crawler
             return graph;
         }
 
-        private void VisualizeChildren(Graph graph, DirTree.Node parent, (DirTree.Node[] visited, DirTree.Node[] looked) frame)
+        private void VisualizeChildren(Graph graph, DirTree.Node parent, (DirTree.Node[] visited, DirTree.Node[] looked, DirTree.Node[] result) frame)
         {
             if (parent.children.Count > 0)
             {
@@ -72,7 +77,12 @@ namespace FolderCrawler.Classes.Crawler
                     {
                         node.Attr.Color = Color.Blue;
                         edge.Attr.Color = Color.Blue;
-                    } else if (frame.visited.Contains(child))
+                    } else if (frame.result.Contains(child))
+                    {
+                        node.Attr.Color = Color.Green;
+                        edge.Attr.Color = Color.Green;
+                    }
+                    else if (frame.visited.Contains(child))
                     {
                         node.Attr.Color = Color.Red;
                         edge.Attr.Color = Color.Red;
@@ -84,7 +94,5 @@ namespace FolderCrawler.Classes.Crawler
                 }
             }
         }
-
-
     }
 }

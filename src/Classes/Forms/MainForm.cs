@@ -157,13 +157,13 @@ namespace FolderCrawler
                 sw.Start();
                 if (this.searchProps.method == "BFS")
                 {
-                    c.BFS(this.searchProps.fileName);
+                    c.BFS(this.searchProps.fileName, this.searchProps.findAll);
                 } else
                 {
-                    c.DFS(this.searchProps.fileName);
+                    c.DFS(this.searchProps.fileName, this.searchProps.findAll);
                 }
                 sw.Stop();
-                Classes.Crawler.Visualizer v = new Classes.Crawler.Visualizer(c.tree, c.frames.ToArray());
+                Classes.Crawler.Visualizer v = new Classes.Crawler.Visualizer(c);
 
                 //create a graph object 
 

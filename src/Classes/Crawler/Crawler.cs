@@ -14,18 +14,19 @@ namespace FolderCrawler.Classes.Crawler
     class Crawler
     {
         public Tree tree;
-        public List<(Node[] visited, Node[] looked)> frames;
+        public List<(Node[] visited, Node[] looked, Node[] result)> frames;
 
         public Crawler(string dirname)
         {
             this.tree = new Tree(dirname);
-            this.frames = new List<(Node[] visited, Node[] looked)>();
+            this.frames = new List<(Node[] visited, Node[] looked, Node[] result)>();
         }
 
-        public void DFS(string target)
+        public void DFS(string target, bool findAll)
         {
             HashSet<Node> visited = new HashSet<Node>();    // Array of visited nodes
             Stack<Node> looked = new Stack<Node>();         // Array of looked nodes (in path from startDir into curNode)
+            HashSet<Node> result = new HashSet<Node>();     // Array of result path nodes
             bool flag;                                      // Flag if the node is fully searched
             Node curNode;                                   // Current Node 
 
@@ -33,7 +34,7 @@ namespace FolderCrawler.Classes.Crawler
             void Backtrack()
             {
                 looked.Pop();
-                this.frames.Add((visited.ToArray(), looked.ToArray()));
+                this.frames.Add((visited.ToArray(), looked.ToArray(), result.ToArray()));
             }
 
             // Function to move into node
@@ -41,7 +42,7 @@ namespace FolderCrawler.Classes.Crawler
             {
                 visited.Add(node);
                 looked.Push(node);
-                this.frames.Add((visited.ToArray(), looked.ToArray()));
+                this.frames.Add((visited.ToArray(), looked.ToArray(), result.ToArray()));
             }
 
             // Initialize Search
@@ -58,7 +59,15 @@ namespace FolderCrawler.Classes.Crawler
                 // Target is found
                 if (Utils.GetDirName(curNode.dirName).Equals(target))
                 {
-                    break;
+                    foreach (Node node in looked)
+                    {
+                        result.Add(node);
+                        Console.WriteLine(result.Count);
+                    }
+                    if (!findAll)
+                    {
+                        break;
+                    }
                 }
 
 
@@ -97,19 +106,16 @@ namespace FolderCrawler.Classes.Crawler
                 }
             }
 
-
-            // If target isn't found, clear the looked array
-            if (!Utils.GetDirName(curNode.dirName).Equals(target))
-            {
-                looked.Clear();
-                this.frames.Add((visited.ToArray(), looked.ToArray()));
-            }
+            // Clear looked stack when finished
+            looked.Clear();
+            this.frames.Add((visited.ToArray(), looked.ToArray(), result.ToArray()));
         }
 
-        public void BFS(string target)
+        public void BFS(string target, bool findAll)
         {
             HashSet<Node> visited = new HashSet<Node>();    // Array of visited nodes
             Stack<Node> looked = new Stack<Node>();         // Array of looked nodes (in path from startDir into curNode)
+            HashSet<Node> result = new HashSet<Node>();     // Array of result path nodes
             Queue<Node> queue = new Queue<Node>();          // Search Queue
             Node curNode;                                   // Current Node 
 
@@ -124,7 +130,7 @@ namespace FolderCrawler.Classes.Crawler
             {
                 visited.Add(node);
                 looked.Push(node);
-                this.frames.Add((visited.ToArray(), looked.ToArray()));
+                this.frames.Add((visited.ToArray(), looked.ToArray(), result.ToArray()));
             }
 
             // Initialize Search
@@ -158,21 +164,15 @@ namespace FolderCrawler.Classes.Crawler
                         }
                     }
                 }
-                
-
 
                 // Get Next Node
                 curNode = queue.Dequeue();
-                
 
                 // Move to next Node
                 MoveTo(curNode);
 
                 // Get the children of the node
-                
                 curNode.FindChildren();
-
-
 
                 foreach (Node child in curNode.children)
                 {
@@ -181,8 +181,19 @@ namespace FolderCrawler.Classes.Crawler
                     // Terminates if the child is the target
                     if (Utils.GetDirName(child.dirName).Equals(target))
                     {
-                        curNode = child;
-                        break;
+                        foreach (Node node in looked)
+                        {
+                            result.Add(node);
+                            Console.WriteLine(result.Count);
+                        }
+                        if (!findAll)
+                        {
+                            break;
+                        } else
+                        {
+                            Backtrack();
+                        }
+
                     } else
                     // Else, add the directories into queue, then backtrack to current node
                     {
@@ -195,12 +206,22 @@ namespace FolderCrawler.Classes.Crawler
                 }
             } while (!Utils.GetDirName(curNode.dirName).Equals(target) && queue.Count > 0);
 
-            // If target isn't found, clear the looked array
-            if (!Utils.GetDirName(curNode.dirName).Equals(target))
+            // Clear looked stack when finished
+            looked.Clear();
+            this.frames.Add((visited.ToArray(), looked.ToArray(), result.ToArray()));
+        }
+        
+        public string[] GetResults(string target)
+        {
+            List<string> res = new List<string>();
+            foreach (Node node in frames.Last().result)
             {
-                looked.Clear();
-                this.frames.Add((visited.ToArray(), looked.ToArray()));
+                if (Utils.GetDirName(node.dirName).Equals(target))
+                {
+                    res.Add(node.dirName);
+                }
             }
+            return res.ToArray();
         }
     }
 }
