@@ -168,6 +168,9 @@ namespace FolderCrawler
                 //create a graph object 
 
                 v.Visualize(pnlGraph, 50);
+
+                // display time spent
+                this.lblTimeSpent.Text = "Time Spent: " + sw.ElapsedMilliseconds + " ms";
             }
             else
             {
