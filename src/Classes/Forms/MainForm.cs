@@ -147,13 +147,23 @@ namespace FolderCrawler
 
         private void fillGraph(Microsoft.Msagl.Drawing.Graph graph, Classes.DirTree.Tree resTree)
         {
-            //if (resTree)
             string[] arrParent = resTree.root.dirName.Split('\\');
-            string parent = arrParent[arrParent.Length - 1]; 
+            string parent = arrParent[arrParent.Length - 1];  // parent utama
             foreach (Classes.DirTree.Node lookedNode in resTree.visited) {
                 string[] arrChild = lookedNode.dirName.Split('\\');
                 string child = arrChild[arrChild.Length - 1];
-                graph.AddEdge(parent, child);
+                if (child == this.searchProps.fileName)
+                {
+                    // give blue color
+                    graph.AddEdge(parent, child).Attr.Color = Microsoft.Msagl.Drawing.Color.Blue;
+                    Microsoft.Msagl.Drawing.Node childNode = graph.FindNode(child);
+                    childNode.Attr.Color = Microsoft.Msagl.Drawing.Color.Blue;
+                }
+                else
+                {
+                    // give black color (default)
+                    graph.AddEdge(parent, child);
+                }
             }
         }
 
@@ -233,6 +243,11 @@ namespace FolderCrawler
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pnlGraph_Paint(object sender, PaintEventArgs e)
         {
 
         }
