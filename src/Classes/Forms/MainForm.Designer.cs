@@ -140,6 +140,11 @@ namespace FolderCrawler
             // 
             this.delayInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.delayInput.Location = new System.Drawing.Point(144, 302);
+            this.delayInput.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.delayInput.Name = "delayInput";
             this.delayInput.Size = new System.Drawing.Size(66, 26);
             this.delayInput.TabIndex = 15;
